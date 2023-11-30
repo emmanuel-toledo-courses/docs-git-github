@@ -57,8 +57,6 @@ Todo lo que se trabaja en ```Git``` se recomienda trabajarlo en ingles ya que es
 | ```git branch -m {nombre rama actual} {nuevo nombre}```, ```git branch -m master main``` | Comando para renombrar una rama en Git, no es algo que afecta a todos los repositorios, solo dentro del que nos encontramos |
 | ```git commit -am "{mensaje del commit}"```, ```git commit -am "Readme actualizado"``` | Comando que realiza comando add y comando commit en uno mismo, pero solo funciona para archivos que ya previamente se tuvieron en un stage, si esta untracked no (sin haber hecho antes un git add .) |
 | ```git log``` | Vemos el historial de los commits, el número que vemos es el id del commit, la rama donde se hizo, el autor y la fecha además del mensaje que se colocó, se veran del más reciente al más viejo |
-| `````` | |
-| `````` | |
 
 ### Practica No. 1
 
