@@ -1,6 +1,6 @@
 # Git - Fundamentos
 
-Todos los recursos y proyectos estan dentro de ```assets -> 01``` y ```app -> 01```.
+Todos los recursos y proyectos estan dentro de ```assets -> 01```.
 
 ## URL's de apoyo
 
@@ -25,6 +25,8 @@ Se recomienda hacer la menor cantidad de modificaciones en la rama ```main```, u
 El archivo ```README.md``` (md = markdown) nos permite colocar cierta información del repositorio en forma visual para el usuario final.
 
 Todo lo que se trabaja en ```Git``` se recomienda trabajarlo en ingles ya que es un estandar pero sin problmea puede ser otro idioma.
+
+```Git``` no da seguimiento a las carpetas que se encuentren sin archivos dentro de él. Se puede crear un archivo llamado ```.gitkeep``` dentro del folder para indicar a ```Git``` que a pesar de que no tenga archivos, queremos que ```Git``` lo administre.
 
 ## Glosario de palabras
 
@@ -58,7 +60,9 @@ Todo lo que se trabaja en ```Git``` se recomienda trabajarlo en ingles ya que es
 | `````` | |
 | `````` | |
 
-### Practica No 1
+### Practica No. 1
+
+Todos los recursos y proyectos estan dentro de ```assets -> 01 -> 01-bases```.
 
 ```
 git init
@@ -123,4 +127,75 @@ git commit -am "README actualizado"
 
 # Consultamos el historico de los commits
 git log
+```
+
+### Practica No. 2
+
+Todos los recursos y proyectos estan dentro de ```assets -> 01 -> 02-bases```.
+
+```
+git init
+git status
+
+# Agregamos más de un documento al stage
+git add .\index.html .\main.html
+git reset .\index.html .\main.html
+
+# Agregamos al stage todos los archivos de tipo .html (busca los archivos en el root)
+git add *.html
+git commit -m "Archivos HTML agergados"
+
+# Agregamos todos los archivos JS dentro del forlder 'js'
+git add js/*.js
+git commit -m "Archivos JS agergados"
+
+# Creamos un folder vacio llamado 'uploads', que nativamente lo ignora git, creamor archivo .gitkeep
+git add uploads/*.gitkeep
+git commit -m "Carpeta uploads agregada"
+
+# Eliminamos la carpeta y podemos hacer lo siguiente para restaurarla
+git checkout -- .e
+
+# Indicamos a git que agregue todos los documentos dentro de una carpeta y los agregue al stage
+git add css/
+git commit -m "Estilos agregados"
+
+git add .
+git commit -m "Imagenes y fuentes agregadas"
+
+git log
+```
+
+## Alias en Git
+
+Podemos agregar banderas en los comandos de git
+
+```
+git status --short
+```
+
+Para crear un alias sería como lo siguiente.
+
+```
+git config --global alias.{nombre/comando del alias} "{comando que queremos ejecutar con el alias}"
+
+git config --global alias.s "status --short"
+
+# Podemos configurar el alias con el siguiente comando dentro del apartado [alias] (:wq para guardar, :q para cerrar sin guardar)
+git config --global -e
+
+# Ejecutamos alias s
+git s
+
+# Puede consultar la documentación oficial para ver los decoradores por comando
+git config --global alias.lg "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
+
+# Ejecutamos alias lg
+git lg
+
+# Una alternativa de comando status
+git config --global alias.s status -sb
+
+# Ejecutamos alias s2
+git s2
 ```
