@@ -208,6 +208,8 @@ git commit -m ".gittgnore agregado"
 
 Realizar práctica de ```assets -> 02 -> Tarea.zip```, comandos de la actividad.
 
+Seguimos los pasos del archivo index.html.
+
 ```
 git init
 git add README.md
