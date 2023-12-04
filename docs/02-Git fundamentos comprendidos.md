@@ -22,7 +22,6 @@ El archivo ```.gitignore``` nos permite definir que archivos o directorios no qu
 | ```git reset --hard df794ea``` | Destruimos y mantendremos todo el repositorio a como se encontraba en dicho commit |
 | ```git reflog``` | Historia completa de la interacción del repositorio sin omitir nada, secuencia de movimientos en todo el repo |
 | ```git mv {path origen} {path final}```, ```git mv destruir-mundo.md salvar-mundo.md``` | Movemos un archivo de un path a otro, puede usarse también para renombrar un archivo |
-| `````` | |
 
 # Practica No. 1
 
