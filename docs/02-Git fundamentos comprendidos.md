@@ -204,3 +204,22 @@ git add .
 git commit -m ".gittgnore agregado"
 ```
 
+# Tarea
+
+Realizar práctica de ```assets -> 02 -> Tarea.zip```, comandos de la actividad.
+
+```
+git init
+git add README.md
+git commit -m "Creación de README"
+
+git add logs/hoy.log
+git commit -m "Creamos el archivo hoy.log"
+
+git add .gitignore
+git commit -m "Agregado .gitignore"
+
+# Borramos todo y solo dejamos README.md
+git reflog
+gir reset --hard | git checkout -- .
+```
