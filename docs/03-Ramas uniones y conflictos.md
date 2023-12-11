@@ -6,9 +6,9 @@ Podemos ver las ramas como una copia del proyecto en si que nace a partir de una
 
 Veremos como ```git``` nos ayuda al momento de resolver conflictos al momento de tratar de unir el contenido de una rama a otra.
 
-## URL's de apoyo
+## Glosario de comandos
 
-| Descripción | URL |
+| Comando | Descripción |
 | ------------- | ------------- |
 | ```git branch``` | Consultar listado de ramas dentro del repo, la rama del color resaltado o con el * sería la rama en la que nos encontramos |
 | ```git branch {nombre rama}```, ```git branch rama-villanos``` | Crear una nueva rama |
