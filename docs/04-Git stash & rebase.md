@@ -25,9 +25,9 @@ Una recomendación es no cambiar la historia de un repositorio.
 | ```git stash clear``` | Borramos todos los stash del repositorio |
 | ```git stash apply --index {índice}```, ```git stash apply --index 2``` | Restablecemos los cambios de un stash en una posición especifica según su indice, siendo 0 el último stash |
 | ```git stash show {índice del stash}```, ```git stash show 1``` | Obtenemos la información de los cambios de un stash |
-| `````` | |
-| `````` | |
-| `````` | |
+| ```git rebase master``` | Creamos un rebase con la rama master, este comando debe ejecutarse dentro de una rama que no sea la master ya que ahí es donde haremos el rebase (los commits de la rama dos hizo rebase con la rama master) |
+| ```git rebase -i HEAD~{cantidad de commits}```, ```git rebase -i HEAD~4``` | Indicamos que queremos que los últimos 4 commits se consideren para entrar en un modo de rebase interactivo, dentro del mismo veremos opcioens que podemos realizar |
+| ```git checkout -- README.md``` | Regresamos un archivo (en este caso README) a su estado original |
 
 ## TIL
 
@@ -43,6 +43,7 @@ También existen los ```rebase``` interactivos, que no permiten trabajar de 4 di
 3. Unir commits
 4. Separar commits 
 
+El uso del ```rebase``` interactivo debería usarse solo cuando nuestra historia del repo es local, si ya esta dentro del servidor externo se recomienda dejarlo así, ya que forma parte de toda la historia del repositorio.
 
 # Practica No. 1
 
@@ -146,5 +147,162 @@ git stash list
 
 Vamos a trabajar con la practica ```08-demo-rebase```, la cual es el contenido de ```assets -> 04 -> 08-demo-rebase```.
 
+## Rebase normal
+
+Una alternativa a usar un merge y corregir conflictos.
+
 ```
+# La rama 'rama-misiones-completadas' tiene dos commits pero no esta unida al master, y el master tiene 
+# dos commits que deben de vivir dentro de la rama 'rama-misiones-completadas'
+git branch
+git checkout rama-misiones-completadas
+git branch
+
+# Nuestra rama 'rama-misiones-completadas' ya tiene los commits que tiene master
+git rebase master
+git lg | git log
+
+git checkout master
+git branch
+git lg
+
+# Se hace un merge en forma Fast-forward de rama-misiones-completadas a master
+git merge rama-misiones-completadas
+git lg
+git branch -d rama-misiones-completadas
+```
+
+## Rebase interactivo - squash
+
+```Squash``` nos permite fusionar dos o más commits en uno solo
+
+```
+# Modificamos misiones.md, quitamos punto 6 lo ponemos en misiones-completadas.md
+git lg
+git commit -am "Actualizamos misiones completadas"
+git lg
+
+# Los últimos dos commits es de lo mismo, no queremos tenerlo por separado sino en un solo commit
+git rebase -i HEAD~4
+
+# Presionamos 'a' para editar, y al último commit de arriba hacia abajo, le colocamos un squash (o solo s) en vez de pick, esto para indicar que tanto el último commit como el primero lo vamos a fusionar en uno solo, para guardar presionamos esc, dos puntos, wq (:wq)
+
+# Si queremos fusionar 3 commits, debemos colocar squash en los últimos dos commits para que tome los últimos 3
+
+---
+pick 158ba9e Se agrego a la liga: Volcán Negro
+pick 5d04ebf Agregamos el archivo de las misiones completadas
+pick fb7d5b9 Actualizamos dos misiones completadas al momento
+s    782c3e1 Actualizamos misiones completadas
+---
+
+# Nos muestra una pantalla para poder actualizar los mensajes del commit pero si no necesitamos no lo cambiamos, presionamos :wq! para salir
+
+# Antes veiamos:
+* f2cbeb9 - (2 seconds ago) Actualizamos misiones completadas - Emmanuel Toledo Castro (HEAD -> master)
+* 93f9468 - (6 years ago) Actualizamos dos misiones completadas al momento - Strider
+* 2449099 - (6 years ago) Agregamos el archivo de las misiones completadas - Strider
+
+# Ahora vemos
+* 87e91ba - (6 years ago) Actualizamos dos misiones completadas al momento - Strider (HEAD -> master)
+* 2449099 - (6 years ago) Agregamos el archivo de las misiones completadas - Strider
+
+# Los dos commits se fusionaron en uno solo
+```
+
+## Rebase interactivo - reword
+
+Nos permite actualizar el nombre o mensaje del commit.
+
+```
+git lg
+
+# Accedemos al rebase interactivo con los últimos 4 commits
+git rebase -i HEAD~4
+
+# Presionamos 'a' y en vez de pick ponemos 'reword' o 'r', luego esc, :wq
+---
+pick 300c014 Misiones nuevas agregadas
+pick 158ba9e Se agrego a la liga: Volcán Negro
+r 2449099 Agregamos el archivo de las misiones completadas
+r 87e91ba Actualizamos dos misiones completadas al momento
+---
+
+# Nos mueve a la consola donde vemos los mensajes del primer commit.
+---
+Agregamos el archivo de las misiones completadas
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+...
+---
+
+# Ponemos algo como
+---
+Agregamos el archivo misiones-completadas.md
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# Author:    Strider <fernando.herrera85@gmail.com>
+# Date:      Fri Jun 23 15:44:11 2017 -0600
+#
+...
+---
+
+# Presionamos esc, :wq!, veremos que nos pone una pantalla igual pero ahora apunta al otro commit al que le indicamos que ibamos a hacer un reword
+git lg | git log
+```
+
+## Rebase interactivo - edit
+
+Nos permite separar un commit en dos o incluso hacer modificaciones generales en el repositorio dentro del rebase y esto lo movemos al repo original (entiendase el rebase como un clon del repo).
+
+```
+# Modificamos README.md y misiones.md y villanos.md
+# Tenemos tres cambios y queremos separar cada cambio en un commit diferente
+git s
+
+# Regresamos archivo README a su estado original
+git checkout -- README.md
+
+git commit -am "commits"
+git lg
+
+# Accedemos al modo rebase interactivo para separar un commit en dos
+git rebase -i HEAD~3
+
+# 'a' para editar, esc, :wq! para salir
+---
+pick f08864e Agregamos el archivo misiones-completadas.md
+pick 448ea91 Misiones actualizadas
+edit ba66e96 commits
+---
+
+# Debemos de continuar con el rebase, si vemos el estatus veremos el mensaje siguiente
+# interactive rebase in progress; onto 158ba9e
+# Indicando que estamos dentro del rebase interactivo
+git status
+
+# Eliminamos el último commit y lo bajamos del stage (es como estar en el punto del inicio de esta practica)
+git reset HEAD^
+
+# Damos seguimiento a villanos.md
+git add villanos.md
+git s
+git commit -m "Agregamos a deadshot"
+
+# Damos seguimiento a misiones.md
+git commit -am "Misiones actualizadas"
+
+# Seguimos en el rebase
+git lg
+git status
+
+# Una vez listo todo vamos a hacer que el rebase continue, si tuvieramos un reword o algo más veriamos algo parecido a las practicas anteriores
+git rebase --continue
+
+# Ya no vemos commit con nombre 'commits'
+git lg
 ```
