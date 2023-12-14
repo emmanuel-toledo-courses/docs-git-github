@@ -1,5 +1,7 @@
 # Inicios en GitHub, Git Remote, Git Push & Git Pull
 
+Veremos como podemos integrar y trabajar nuestros repositorios locales pero haciendo uso de ```GitHub```, cambiando de usar repositorios locales a un repositorio remoto.
+
 ## URL's de apoyo
 
 | Descripción | URL |
