@@ -4,6 +4,7 @@
 
 | Descripción | URL |
 | ------------- | ------------- |
+| GitHub pull request workflow | https://blog.mergify.com/understanding-the-github-pull-request-workflow/ |
 
 ## Glosario de comandos
 
