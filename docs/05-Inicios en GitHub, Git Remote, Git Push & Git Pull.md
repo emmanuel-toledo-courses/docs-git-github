@@ -20,7 +20,7 @@ Veremos como podemos integrar y trabajar nuestros repositorios locales pero haci
 | ```git branch -M main``` | Cambiar nombre de la rama en la que nos encontramos, usualmente usada para cambiar master por main |
 | ```git push --tags``` | Cargamos los tags locales a nuestro repositorio en ```GitHub```, si un tag ya existe lo actualiza, si no, lo crea |
 | ```git pull```, ```git pull origin main``` | Descargamos los cambios del repositorio desde ```GitHub``` hacia el repositorio local |
-| `````` | |
+| ```git clone {url HTTPS del repositorio}``` | Clonamos el repositorio remoto en un repositorio local del equipo |
 
 ## TIL
 
@@ -104,4 +104,72 @@ git pull | git pull origin main
 # Veremos que el HEAD -> main, y el origin/main estan al mismo nivel
 git lg
 
+# Eliminamos todo el repositorio 09-heroes, pero ahora podemos clonarlo por medio de HTTPS
+git clone https://github.com/emmanuel-toledo/docs-git-github-practice-liga-justicia.git
+
+# Descargo el repositorio en un folder llamado 'docs-git-github-practice-liga-justicia' que es el nombre del repositorio remoto en github, podemos cambiar el nombre de la carpeta al que teniamos antes.
+# Los archivos que no vemos son los que colocamos en el archivo .gitignore
+
+# Modificamos el README.md
+git commit -am "README.md actualizado"
+
+# El HEAD -> main se encuentra en un commit y el origin/main se encuentra en otro
+git lg | git log
+
+git push
+
+# Editemos el README desde github en una linea especifica, del mismo modo lo hacemos en el repo local
+git lg
+git commit -am "README.md: Local actualizado"
+git pull
+
+# Veremos mensaje: fatal: Not possible to fast-forward, aborting.
+# Esto porque configuramos el fast-fordward al hacer un pull (git config --global pull.ff only)
+# No siempre pasara facilmente, podemos entrar a un rebase interactivo.
+
+# Editamos para quitar (ff...)
+git config --global e
+
+# Configuración local del repo, no es global (--global)
+git config pull.rebase true
+git pull
+
+# Resolvemos los conflictos manteniendo ambos cambios
+# Vemos que estamos en interactive rebase in progress;
+git status
+git add .
+git commit -m "README unificado con origin/main"
+git s
+git status
+
+# Debemos de completar o continuar el rebase
+git rebase --continue
+
+# Veremos el mensaje: Successfully rebased and updated refs/heads/main.
+git push
+
+# Configuramos rebase global, cada que hagamos un pull con conflictos entraremos al rebase
+git config --global pull.rebase true
+git pull
+
+# Modificamos ciudades.md, villanos.md y heroes.md en GitHub
+# Tenemos 3 nuevos commmits que se encuentran remotamente
+# Modificamos localmente ciudades.md y heroes.md en las mismas lineas que GitHub
+git commit -am "Ciudades y héroes actualizados"
+git push
+
+# Veremos herrores debido a conflictos, para corregirlos debemos hacer un pull
+git pull
+# Encontramos conflictos en ciudades.md y heroes.md, los demás cambios pasaron correctamente
+# Vamos a resolverlos los conflictos pendientes
+# heroes.md: Accept current changes
+# ciudades.md: Eliminamos punto 3 y aceptamos incomming changes
+git status
+git add .
+git status
+git commit -m "Unificado ciudades y heroes"
+git status # Seguimos en rebase
+git rebase --continue
+git status # Salimos del rebase
+git push
 ```
