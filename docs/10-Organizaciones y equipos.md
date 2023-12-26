@@ -10,4 +10,9 @@ Existen diferentes planes de pago para la creación de organizaciones, existe un
 
 Una vez creada la organización podemos editar ciertos aspectos tal cual lo hacemos con nuestro propio usuario de GitHub, adicionalmente, podemos mover o transferir un repositorio que tenemos dentro de los repositorios de un usuario a una organización en particular.
 
+Un team en una organización es un pequeño grupo de trabajo con acceso particular tanto a los repositorios como a la organización en si. También podemos verlos como que un team es una organización más pequeña dentro de la organización principal. Cada equipo puede acceder o no a ciertos repositorios que pertenecen a la organización principal.
+
+No se pueden generar nuevos repositorios desde el Team, debemos de tener los repos en la organización y posteriormente ligarlos al Team que queremos con ciertos permisos de lectura y/o escritura.
+
+
 
