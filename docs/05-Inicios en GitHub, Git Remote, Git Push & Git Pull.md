@@ -21,6 +21,7 @@ Veremos como podemos integrar y trabajar nuestros repositorios locales pero haci
 | ```git push --tags``` | Cargamos los tags locales a nuestro repositorio en ```GitHub```, si un tag ya existe lo actualiza, si no, lo crea |
 | ```git pull```, ```git pull origin main``` | Descargamos los cambios del repositorio desde ```GitHub``` hacia el repositorio local |
 | ```git clone {url HTTPS del repositorio}``` | Clonamos el repositorio remoto en un repositorio local del equipo |
+| ```git clone {url HTTPS del repositorio} {nombre de carpeta}``` | Clonamos el repositorio remoto en un repositorio local del equipo con un nombre especifico como nombre de carpeta |
 
 ## TIL
 
